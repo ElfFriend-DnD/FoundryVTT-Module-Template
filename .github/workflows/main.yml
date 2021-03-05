@@ -39,6 +39,10 @@ jobs:
         # Defaults to "Apply automatic changes"
         commit_message: release version ${{steps.get_version.outputs.version-without-v}}
 
+        # Optional branch name where commit should be pushed to
+        # Defaults to the current branch
+        branch: ${{github.event.release.target_commitish}}
+
     # Create a zip file with all files required by the module to add to the release
     - run: zip -r ./module.zip module.json styles/ scripts/ templates/ languages/
 
