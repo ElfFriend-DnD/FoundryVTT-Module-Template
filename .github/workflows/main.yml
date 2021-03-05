@@ -37,11 +37,11 @@ jobs:
       with:
         # Optional but recommended
         # Defaults to "Apply automatic changes"
-        commit_message: release version ${{steps.get_version.outputs.version-without-v}}
+        commit_message: release version ${{ steps.get_version.outputs.version-without-v }}
 
         # Optional branch name where commit should be pushed to
         # Defaults to the current branch
-        branch: ${{github.event.release.target_commitish}}
+        branch: ${{ github.event.release.target_commitish }}
 
     # Create a zip file with all files required by the module to add to the release
     - run: zip -r ./module.zip module.json styles/ scripts/ templates/ languages/
@@ -55,6 +55,7 @@ jobs:
         name: ${{ github.event.release.name }}
         draft: ${{ github.event.release.draft }}
         prerelease: ${{ github.event.release.prerelease }}
+        commit: ${{ github.event.release.target_commitish }}
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: './module.json, ./module.zip'
         tag: ${{ github.event.release.tag_name }}
